@@ -1,0 +1,40 @@
+CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
+SET (TARGET_NAME call_mysql)
+
+PROJECT(${TARGET_NAME})
+
+MESSAGE(STATUS "==================================")
+MESSAGE(STATUS "Start:${TARGET_NAME}")
+
+ADD_DEFINITIONS(-std=c++11)
+ADD_DEFINITIONS(-DIMPLEMENT_MYSQL_API=1)
+
+INCLUDE_DIRECTORIES(
+	${CMAKE_CURRENT_SOURCE_DIR}/public
+	${CMAKE_CURRENT_SOURCE_DIR}/private
+	)
+
+AUX_SOURCE_DIRECTORY(${CMAKE_CURRENT_SOURCE_DIR}/src SRC_FILES)
+
+FILE(GLOB_RECURSE HEADER_FILES  *.h *.hpp)
+SOURCE_GROUP("Include" FILES ${HEADER_FILES})
+
+ADD_LIBRARY(${TARGET_NAME} SHARED ${HEADER_FILES} ${SRC_FILES})
+TARGET_LINK_LIBRARIES(${TARGET_NAME} 
+	${OpenCV_LIBS}
+	)
+
+# Set output directory: build
+SET(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR})
+
+#set export lib and header path
+#==========================================
+set(${PROJECT_NAME}_LIBS
+	${TARGET_NAME}
+	CACHE INTERNAL "export include path variable")
+
+set(${PROJECT_NAME}_INCDIR
+	${CMAKE_CURRENT_SOURCE_DIR}/public
+	CACHE INTERNAL "export include path variable")
+
+add_subdirectory(test)
