@@ -1,9 +1,24 @@
-#include <thread>
+﻿#include <thread>
 #include <chrono>
 #include <iostream>
 #include <call_mysql.hpp>
 
+
+#ifdef _WIN32
+#include <Windows.h>
+#endif
+
 int main(int argc, char** argv) {
+//#ifdef _WIN32 // For display utf-8 Chinese charset.
+//	SetConsoleOutputCP(65001);
+//	CONSOLE_FONT_INFOEX info = { 0 }; // Belove set show Chinese char.
+//	info.cbSize = sizeof(info);
+//	info.dwFontSize.Y = 16; // leave X as zero
+//	info.FontWeight = FW_NORMAL;
+//	wcscpy(info.FaceName, L"Consolas");
+//	SetCurrentConsoleFontEx(GetStdHandle(STD_OUTPUT_HANDLE), NULL, &info);
+//#endif
+
 	std::string strip = "localhost";
 	int port = 3306;
 	std::string username = "root";
@@ -30,6 +45,10 @@ int main(int argc, char** argv) {
 	std::cout << "username = " << username.c_str() << std::endl;
 	std::cout << "pw = " << pw.c_str() << std::endl;
 	
+	CCallMysql::PTR mysqlPtr = CCallMysql::createPtr(strip, port, username, pw);
+
+	int bOk = false;
+	mysqlPtr->check_machine("", "", bOk);
 
 	COUT_DEBUG("finish all");
 	return EXIT_SUCCESS;

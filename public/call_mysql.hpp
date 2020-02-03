@@ -30,8 +30,12 @@ public:
 	CCallMysql() = delete;
 	CCallMysql(const std::string& ip, const int& port, const std::string& usr, const std::string& pw):
 		_ip(ip), _port(port), _usr(usr), _pw(pw) {
-
+		connect();
 	}
+	~CCallMysql() {
+		disconnect();
+	}
+
 	using PTR = std::shared_ptr<CCallMysql>;
 	static PTR createPtr(const std::string& ip, const int& port, const std::string& usr, const std::string& pw) {
 		return std::make_shared<CCallMysql>(ip, port, usr, pw);
@@ -57,8 +61,8 @@ public:
 
 
 private:
-	bool connect();
-	bool disconnect();
+	CALLMYSQL_CPP(bool) connect();
+	CALLMYSQL_CPP(bool) disconnect();
 
 	std::string _ip;
 	int _port = 3306;
