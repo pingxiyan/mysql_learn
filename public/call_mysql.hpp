@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <iostream>
 #include <map>
 
@@ -24,50 +24,30 @@
 #endif
 #endif
 
+#include "table_struct.hpp"
+
 class CCallMysql
 {
 public:
-	CCallMysql() = delete;
-	CCallMysql(const std::string& ip, const int& port, const std::string& usr, const std::string& pw):
-		_ip(ip), _port(port), _usr(usr), _pw(pw) {
-		connect();
-	}
-	~CCallMysql() {
-		disconnect();
-	}
-
 	using PTR = std::shared_ptr<CCallMysql>;
-	static PTR createPtr(const std::string& ip, const int& port, const std::string& usr, const std::string& pw) {
-		return std::make_shared<CCallMysql>(ip, port, usr, pw);
-	}
 	
-	CALLMYSQL_CPP(void) check_machine(const std::string& machine_id, std::string login_tm, int& ok);
+	/**
+	 * Check machine.
+	 */
+	virtual void check_machine(const std::string& machine_id, std::string login_tm, int& ok) = 0;
 
-	CALLMYSQL_CPP(bool) get_student(const std::string& card_id, std::map<std::string, std::string>& mapStudentInfor);
+	/**
+	 * Get student from database by card_id.
+	 */
+	virtual bool get_student(const std::string& card_id, TableStudent& outStudent) = 0;
 
-	CALLMYSQL_CPP(bool) save_rec_rslt_to_db(const std::string& card_id, const std::string& machine_id,
-		const std::string& rec_time,
-		const std::string& eye_imag_name,
-		const std::string& eye_rslt,
-		const std::string& mouth_img_name,
-		const std::string& mouth_rslt,
-		const std::string& face_img_name,
-		const std::string& face_rslt,
-		const std::string& hands_img_name,
-		const std::string& hands_rslt,
-		const std::string& parent_img_name,
-		const float& temprature,
-		const int& height);
-
-
-private:
-	CALLMYSQL_CPP(bool) connect();
-	CALLMYSQL_CPP(bool) disconnect();
-
-	std::string _ip;
-	int _port = 3306;
-	std::string _usr;
-	std::string _pw;
+	/**
+	 * Save analysis results to database.
+	 */
+	virtual bool save_rec_rslt_to_db(const TableAnaRslt& anaRslt) = 0;
 };
+
+CALLMYSQL_CPP(CCallMysql::PTR) createCallMySQLPtr(const std::string& ip, const int& port, 
+	const std::string& usr, const std::string& pw, const std::string& dbName);
 
 #define COUT_DEBUG(INF) std::cout << __FUNCTION__ << " : " << __LINE__  << " :: " << INF << std::endl
