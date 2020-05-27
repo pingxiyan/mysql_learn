@@ -1,10 +1,18 @@
 # mysql_learn
 
-# Dependencies
-#### mysql cpp connect dependency
+# How to install mysql
+Download: https://dev.mysql.com/downloads/mysql/
 
-1. [boost](https://nchc.dl.sourceforge.net/project/boost/boost-binaries/1.67.0/boost_1_67_0-msvc-14.1-64.exe)
-	Download and extract to default path.
+#### Linux
+Install guide: https://dev.mysql.com/doc/refman/8.0/en/binary-installation.html   <br>
+
+#### Windows
+
+Dependencies
+1. mysql cpp connect dependency: [boost](https://nchc.dl.sourceforge.net/project/boost/boost-binaries/1.67.0/boost_1_67_0-msvc-14.1-64.exe) Download and extract to default path.
+
+# Database tools: Dbeaver
+You can use Dbeaver to create database and table.
 
 # Issues
 #### Chinese charset
