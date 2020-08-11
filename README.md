@@ -6,6 +6,10 @@ Download: https://dev.mysql.com/downloads/mysql/
 #### Linux
 Install guide: https://dev.mysql.com/doc/refman/8.0/en/binary-installation.html   <br>
 
+MySQL connector: <br>
+https://dev.mysql.com/downloads/connector/cpp/
+
+
 #### Windows
 
 Dependencies
