@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include <iostream>
 #include <map>
+#include <memory>
 
 #if defined(_WIN32)
 #ifdef IMPLEMENT_MYSQL_API

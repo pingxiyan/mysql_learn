@@ -14,8 +14,11 @@ IF (WIN32)
 	SET(MySQL_LIBS "C:/Program Files/MySQL/Connector C++ 8.0/lib64/vs14/mysqlcppconn.lib")
 	SET(BOOST_INCDIR "C:/local/boost_1_67_0")
 ELSE ()
-	SET(MySQL_INCDIR "/usr/local/include")
-	SET(MySQL_LIBS "/usr/local/lib/mysqlcppconn.lib")
+	SET(MySQL_INCDIR "/usr/include/mysql-cppconn-8")
+	#/usr/lib/x86_64-linux-gnu/
+	SET(MySQL_LIBS libmysqlcppconn8.so
+		libmysqlclient.so
+		libmysqlcppconn.so)
 ENDIF ()
 
 INCLUDE_DIRECTORIES(
