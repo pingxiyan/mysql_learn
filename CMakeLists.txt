@@ -17,7 +17,6 @@ ELSE ()
 	SET(MySQL_INCDIR "/usr/include/mysql-cppconn-8")
 	#/usr/lib/x86_64-linux-gnu/
 	SET(MySQL_LIBS libmysqlcppconn8.so
-		libmysqlclient.so
 		libmysqlcppconn.so)
 ENDIF ()
 
